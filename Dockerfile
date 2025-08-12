@@ -1,9 +1,6 @@
 FROM registry.access.redhat.com/ubi8/openjdk-17
 
-# Copy WAR into deployments directory
-COPY newimsg.war /deployments/ROOT.war
-
-# Allow OpenShift random UID execution
-RUN chmod -R g+rw /deployments
+# Copy WAR into deployments directory with correct ownership
+COPY --chown=185:0 newimsg.war /deployments/ROOT.war
 
 EXPOSE 8080
